@@ -1,0 +1,35 @@
+---
+- hosts: secondary
+  remote_user:
+  become_method: sudo
+  become: true
+  vars_files:
+    - vars.yaml
+  tasks:
+    - name: Configure GitLab Runner (using provided token)
+      copy:
+        dest: /etc/gitlab-runner/config.toml
+        content: |
+          concurrent = 1
+          [[runners]]
+            name =  "{{ instance_name }}"
+            url = "{{ gitlab_url }}"
+            token = "{{ authentication_token }}"
+            limit = 0
+            executor = "{{ executor }}"
+            builds_dir = ""
+            [runners.docker]
+              host = "{{ hostname }}"
+              image = "{{ image }}"
+              privileged = false
+              disable_cache = false
+              cache_dir = ""
+
+                environment = ["FF_NETWORK_PER_BUILD=1"]
+          [session_server]
+               listen_address = "0.0.0.0:3000"
+    - name: Restart GitLab Runner service
+      service:
+        name: gitlab-runner
+        state: restarted
+        

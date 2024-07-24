@@ -1,0 +1,28 @@
+---
+- hosts: secondary_gitlab_server
+  remote_user:
+  become_method: sudo
+  become: true
+  tasks:
+
+    - name: Copy GitLab Runner package
+      copy:
+        src: /home/vagrant/gitlab-runner-17.2.0-1.x86_64.rpm  # Replace with local path
+        dest: /tmp/gitlab-runner.rpm
+        remote_src: yes
+        mode: '0644'
+
+    - name: Copy GPG key
+      copy:
+        src:  /home/vagrant/gpg_key.asc
+        dest: /tmp/gpg_key.asc
+        remote_src: yes
+        mode: '0644'
+
+
+    - name: Import GPG key
+      command: rpm --import /tmp/gpg_key.asc
+
+    - name: Install GitLab Runner
+      command: rpm -ivh /tmp/gitlab-runner.rpm
+~                                                                                    
