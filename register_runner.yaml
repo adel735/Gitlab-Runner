@@ -21,7 +21,8 @@
             [runners.docker]
               host = "{{ hostname }}"
               image = "{{ image }}"
-              privileged = false
+              tls_verify = false
+              privileged = true
               disable_cache = false
               cache_dir = ""
 
