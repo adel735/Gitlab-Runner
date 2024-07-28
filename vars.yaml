@@ -1,6 +1,3 @@
 instance_name: ""
 gitlab_url: ""
 authentication_token: ""
-executor: "docker"
-hostname: ""
-image: ""
