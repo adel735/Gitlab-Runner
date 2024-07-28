@@ -7,7 +7,7 @@
 
     - name: Copy GitLab Runner package
       copy:
-        src: /home/vagrant/gitlab-runner-17.2.0-1.x86_64.rpm  # Replace with local path
+        src: /home/vagrant/gitlab-runner-17.2.1-1.x86_64.rpm  # Replace with local path
         dest: /tmp/gitlab-runner.rpm
         remote_src: yes
         mode: '0644'
