@@ -10,23 +10,14 @@
       copy:
         dest: /etc/gitlab-runner/config.toml
         content: |
-          concurrent = 1
           [[runners]]
-            name =  "{{ instance_name }}"
-            url = "{{ gitlab_url }}"
-            token = "{{ authentication_token }}"
-            limit = 0
-            executor = "{{ executor }}"
-            builds_dir = ""
+            name = "my-podman-runner"
+            url = "https://gitlab.example.com"
+            token = "your-token"
+            executor = "docker"
             [runners.docker]
-              host = "{{ hostname }}"
-              image = "{{ image }}"
+              host = "unix:///run/podman/podman.sock"
               tls_verify = false
-              privileged = true
-              disable_cache = false
-              cache_dir = ""
-
-                environment = ["FF_NETWORK_PER_BUILD=1"]
           [session_server]
                listen_address = "0.0.0.0:3000"
     - name: Restart GitLab Runner service
