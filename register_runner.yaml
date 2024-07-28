@@ -11,9 +11,9 @@
         dest: /etc/gitlab-runner/config.toml
         content: |
           [[runners]]
-            name = "my-podman-runner"
-            url = "https://gitlab.example.com"
-            token = "your-token"
+            name = "{{ instance_name }}"
+            url = "{{ gitlab_url }}"
+            token = "{{ authentication_token }}"
             executor = "docker"
             [runners.docker]
               host = "unix:///run/podman/podman.sock"
